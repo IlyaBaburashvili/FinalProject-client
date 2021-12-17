@@ -1,2 +1,2 @@
-# Backend code for final project
+# Frontend code for final project
 
