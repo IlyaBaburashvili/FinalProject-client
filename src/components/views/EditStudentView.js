@@ -34,7 +34,11 @@ const useStyles = makeStyles( () => ({
 }));
 
 const EditStudentView = (props) => {
-  const { student, handleChange, handleSubmit } = props;
+  const [firstNameError, setFirstNameError]=useState(false)
+  const [lastNameError, setLastNameError]=useState(false)
+  const [gpaError, setGPAError]=useState(false)
+  const [emailError, setEmailError]=useState(false)
+  const { handleChange, handleSubmit, student } = props;
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -46,22 +50,37 @@ const EditStudentView = (props) => {
         </div>
         <form style={{textAlign: 'center'}} onSubmit={(e) => handleSubmit(e)}>
           <label style= {{color:'#11153e', fontWeight: 'bold'}}>First Name: </label>
-          <input type="text" name="firstname" onChange ={(e) => handleChange(e)} defaultValue= {props.student.firstname}/>
+          <input type="text" name="firstname" onChange ={(e) => handleChange(e)} defaultValue= {props.student.firstname} onBlur={(e) => {
+            if(!e.target.value){
+              setFirstNameError(true)
+            }
+          }} />
+          {firstNameError && <div>First name cannot be null</div>}
           <br/>
           <br/>
 
           <label style={{color:'#11153e', fontWeight: 'bold'}}>Last Name: </label>
-          <input type="text" name="lastname" onChange={(e) => handleChange(e)} defaultValue={props.student.lastname}/>
+          <input type="text" name="lastname" onChange={(e) => handleChange(e)} defaultValue={props.student.lastname} onBlur={(e) => {
+            if(!e.target.value){
+              setLastNameError(true)
+            }
+          }} />
+          {lastNameError && <div>Last name cannot be null</div>}
           <br/>
           <br/>
 
           <label style={{color:'#11153e', fontWeight: 'bold'}}>campusId: </label>
-          <input type="text" name="campusId" onChange={(e) => handleChange(e)} defaultValue= {props.student.campusId}/>
+          <input type="text" name="campusId" onChange={(e) => handleChange(e)} defaultValue= {props.student.campusId} />
           <br/>
           <br/>
 
           <label style={{color:'#11153e', fontWeight: 'bold'}}>Email: </label>
-          <input type="text" name="email" onChange={(e) => handleChange(e)} defaultValue= {props.student.email}/>
+          <input type="text" name="email" onChange={(e) => handleChange(e)} defaultValue= {props.student.email} onBlur={(e) => {
+            if(!e.target.value.includes("@")){
+              setEmailError(true)
+            }
+          }} />
+          {emailError && <div>Email not valid</div>}
           <br/>
           <br/>
 
@@ -71,7 +90,12 @@ const EditStudentView = (props) => {
           <br/>
 
           <label style={{color:'#11153e', fontWeight: 'bold'}}>GPA: </label>
-          <input type="number" name="gpa" step = "0.1" onChange={(e) => handleChange(e)} defaultValue= {props.student.gpa} />
+          <input type="number" name="gpa" step = "0.1" onChange={(e) => handleChange(e)} defaultValue= {props.student.gpa} onBlur={(e) => {
+            if(e.target.value<0||e.target.value>4){
+              setGPAError(true)
+            }
+          }} />
+          {gpaError && <div>GPA must be between 0.0 and 4.0</div>}
           <br/>
           <br/>
 

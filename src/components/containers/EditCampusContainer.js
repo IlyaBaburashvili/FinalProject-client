@@ -12,6 +12,7 @@ class EditCampusContainer extends Component {
         this.state = {
           name: props.name, 
           id: props.id, 
+          imgURL: props.imgURL,
           description: props.description,
           address: props.address,
           redirect: false, 
@@ -41,6 +42,7 @@ class EditCampusContainer extends Component {
           name: "", 
           address: "", 
           id: null, 
+          imgURL: "",
           description: "", 
           redirect: true, 
           redirectId: this.props.id

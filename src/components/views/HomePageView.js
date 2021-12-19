@@ -60,6 +60,9 @@ const HomePageView = () => {
       </AppBar>
       
       <div className={classes.greeting}><h1>Home Page</h1></div>
+      <center><h2>Welcome to the College App</h2></center>
+      <center> <img src="https://static01.nyt.com/images/2020/03/14/upshot/14up-colleges-remote/14up-colleges-remote-mediumSquareAt3X.jpg" width ="400" height="400" alt="College"/></center>
+      <center><h3>Click on All Campuses and All Students to see our database</h3></center>
     </div>
   );    
 }

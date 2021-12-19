@@ -13,6 +13,7 @@ class NewCampusContainer extends Component {
           name: "", 
           id: null, 
           description: "",
+          imgURL: "",
           address: "",
           redirect: false, 
           redirectId: null
@@ -25,26 +26,52 @@ class NewCampusContainer extends Component {
       });
     }
 
+    checkError = () => {
+      let nameError = "";
+      let addressError= "";
+      let idError= "";
+      let descriptionError= "";
+      if (this.state.name===""){
+        nameError= "Campus mst have name"
+      }
+      if(this.state.address===""){
+        addressError= "Campus must have address"
+      }
+      if(this.state.id===null){
+        idError="Campus must have id"
+      }
+      if(this.state.description===""){
+        descriptionError="Campus must have description"
+      }
+      if(nameError||addressError||idError||descriptionError){
+        return false;
+      }
+      return true;
+    }
+
     handleSubmit = async event => {
         event.preventDefault();
+        const checkErrors=this.checkError()
+        console.log(this.checkErrors)
+        if(checkErrors){
+          let campus = {
+              name: this.state.name,
+              id: this.state.id,
+              description: this.state.description,
+              address: this.state.address,
+          };
+          
+          let newCampus = await this.props.addCampus(campus);
 
-        let campus = {
-            name: this.state.name,
-            id: this.state.id,
-            description: this.state.description,
-            address: this.state.address,
-        };
-        
-        let newCampus = await this.props.addCampus(campus);
-
-        this.setState({
-          name: "", 
-          address: "", 
-          id: null, 
-          description: "", 
-          redirect: true, 
-          redirectId: newCampus.id
+          this.setState({
+            name: "", 
+            address: "", 
+            id: null, 
+            description: "", 
+            redirect: true, 
+            redirectId: newCampus.id
         });
+      }
     }
 
     componentWillUnmount() {

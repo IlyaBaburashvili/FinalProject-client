@@ -26,7 +26,7 @@ class NewStudentContainer extends Component {
       });
     }
 
-    /*checkError = () => {
+    checkError = () => {
       let firstnameError = "";
       let lastnameError = "";
       let emailError= "";
@@ -44,16 +44,15 @@ class NewStudentContainer extends Component {
         gpaError="GPA must be between 0.0 and 4.0"
       }
       if(firstnameError||lastnameError||emailError||gpaError){
-        this.setState({firstnameError, lastnameError, emailError, gpaError})
         return false;
       }
       return true;
-    }*/
+    }
 
     handleSubmit = async event => {
         event.preventDefault();
-        //const checkErrors=this.checkError()
-        //if(checkErrors){
+        const checkErrors=this.checkError()
+        if(checkErrors){
           let student = {
               firstname: this.state.firstname,
               lastname: this.state.lastname,
@@ -63,9 +62,6 @@ class NewStudentContainer extends Component {
           };
           
           let newStudent = await this.props.addStudent(student);
-
-          
-          //console.log("student", newStudent)
 
           this.setState({
             firstname: "", 
@@ -77,7 +73,7 @@ class NewStudentContainer extends Component {
             redirect: true, 
             redirectId: newStudent.id
           });
-        //}
+        }
     }
 
     componentWillUnmount() {

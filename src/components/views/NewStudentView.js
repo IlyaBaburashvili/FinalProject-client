@@ -38,7 +38,6 @@ const NewStudentView = (props) => {
   const [gpaError, setGPAError]=useState(false)
   const [emailError, setEmailError]=useState(false)
   const { handleChange, handleSubmit, student } = props;
-  console.log("student", student)
   const classes = useStyles();
 
   return (
