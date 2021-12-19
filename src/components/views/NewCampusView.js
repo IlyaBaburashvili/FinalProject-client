@@ -68,7 +68,16 @@ const NewCampusView = (props) => {
           <br/>
 
           <label style={{color:'#11153e', fontWeight: 'bold'}}>campusId: </label>
-          <input type="text" name="id" onChange={(e) => handleChange(e)} />
+          <input type="text" name="id" onChange={(e) => handleChange(e)} onBlur={(e) =>{
+            if(!e.target.value){
+              setDescriptionError(true)
+            }
+          }} />
+          {descriptionError && <div>Campus must have an ID</div>}
+          <br/>
+          <br/>
+          <label style={{color:'#11153e', fontWeight: 'bold'}}>Campus Image URL: </label>
+          <input type="text" name="description" onChange={(e) => handleChange(e)} />
           <br/>
           <br/>
 

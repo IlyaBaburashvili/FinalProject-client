@@ -24,7 +24,6 @@ class EditStudentContainer extends Component {
 
     componentDidMount() {
       this.props.fetchStudent(this.props.match.params.id); 
-      console.log(this.props.student);
 
     }
 
@@ -34,10 +33,33 @@ class EditStudentContainer extends Component {
       });
     }
 
+    checkError = () => {
+      let firstnameError = "";
+      let lastnameError = "";
+      let emailError= "";
+      let gpaError= "";
+      if (this.props.firstname===null){
+        firstnameError= "Student must have first name"
+      }
+      if(this.props.lastname===null){
+        lastnameError= "Student must have last name"
+      }
+      if(this.props.email===null){
+       emailError="Student must have a valid email"
+      }
+      if(this.state.gpa>4.0||this.state.gpa<0.0){
+        gpaError="GPA must be between 0.0 and 4.0"
+      }
+      if(firstnameError||lastnameError||emailError||gpaError){
+        return false;
+      }
+      return true;
+    }
 
     handleSubmit = async event => {
         event.preventDefault();
-        console.log(event.target)
+        const checkErrors=this.checkError()
+        if(checkErrors){
           let student = {
               id: Number(this.props.match.params.id),
               firstname: this.state.firstname,
@@ -49,7 +71,7 @@ class EditStudentContainer extends Component {
           console.log(student.gpa)
 
 
-           this.props.editStudent(student);
+          this.props.editStudent(student);
 
           this.setState({
             firstname: "", 
@@ -65,6 +87,7 @@ class EditStudentContainer extends Component {
             redirect: true, 
             redirectId: this.props.id
           });
+        }
     }
 
     componentWillUnmount() {
